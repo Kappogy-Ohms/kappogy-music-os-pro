@@ -352,6 +352,38 @@ Timestamp: ${DateTime.now().toUtc().toIso8601String()}
           tooltipText: 'Switchable skeuomorphic player decks (Technics 1200, Studer Reel-to-Reel, Acrylic, Cyber)',
           description: 'Customize your tactile player visualizer between Classic 33 RPM Vinyl, Technics 1200 Direct-Drive with red laser strobe dots, Studer/Akai 10.5" Studio Reel-to-Reel Aluminum Tape Deck, Audiophile Clear Acrylic, or UV Cyber Fluorescent.',
         ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '22. STUDIO 16-STEP BEAT SEQUENCER & DRUM MACHINE',
+          icon: Icons.grid_view_rounded,
+          accent: AppColors.kappogyRed,
+          tooltipText: '16-step grid sequencer, 5 vintage kits (808, 909, Lo-Fi), tap tempo, and swing groove',
+          description: 'Full-featured hardware drum machine with 6 instrument channels (Kick, Snare, Closed Hat, Open Hat, Clap, Rim), rotary BPM tempo with Tap Tempo, swing percentage (0-75%), running step LEDs, and offline beat bouncing.',
+        ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '23. AUDIOPHILE TT DYNAMIC RANGE (DR) & HEADROOM METER',
+          icon: Icons.speed_rounded,
+          accent: AppColors.kappogyGreen,
+          tooltipText: 'Standard TT Dynamic Range measurement from DR1 (compressed) to DR20 (audiophile)',
+          description: 'Inspect Peak dBFS, RMS loudness, Crest Factor, and true dynamic headroom margin. Includes live True-Peak clipping alert LEDs and dynamic mastering grading badges (Audiophile Master vs Loudness War).',
+        ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '24. FULLSCREEN VINYL SCRATCH & JUGGLING STUDIO',
+          icon: Icons.album_rounded,
+          accent: AppColors.kappogyYellow,
+          tooltipText: 'Dedicated turntablist performance deck with inertia physics, motor cut, and brake knob',
+          description: 'Live DJ scratch studio with direct-drive slipmats, rotational inertia touch physics, motor power deceleration switch, adjustable vinyl brake speed (0.1s to 5.0s), and quick-cut Transform mute buttons.',
+        ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '25. AUTOMOTIVE MEDIA DASHBOARD (CAR MODE)',
+          icon: Icons.directions_car_filled_rounded,
+          accent: AppColors.ledCyan,
+          tooltipText: 'High-contrast, oversized tactile automotive dashboard for distraction-free driving',
+          description: 'Large tactile touch targets (minimum 64x64px), analog speedometer progress gauge, 10s quick-seek controls, large rotary car volume dial, and 1-tap Smart Driving Playlists (Highway Cruise, Chill Commute, Upbeat Energy).',
+        ),
       ],
     );
   }

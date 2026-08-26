@@ -24,8 +24,12 @@ import 'turntable_visualizer.dart';
 import '../../intelligence/presentation/ear_training_game_dialog.dart';
 import '../../library/presentation/library_providers.dart';
 import '../../recorder/presentation/studio_recorder_sheet.dart';
+import '../../recorder/presentation/drum_machine_sheet.dart';
 import '../../equalizer/presentation/auto_eq_sheet.dart';
 import '../../dj_mode/presentation/stem_timeline_arranger_sheet.dart';
+import '../../dj_mode/presentation/vinyl_scratch_studio_screen.dart';
+import '../../car_mode/presentation/car_mode_screen.dart';
+import 'dynamic_range_meter_sheet.dart';
 
 class NowPlayingScreen extends ConsumerWidget {
   final VoidCallback? onOpenEqualizer;
@@ -557,6 +561,46 @@ class NowPlayingScreen extends ConsumerWidget {
                                   tooltip: 'Multi-Stem Waveform Timeline & Arranger',
                                   activeColor: AppColors.kappogyYellow,
                                   onPressed: () => StemTimelineArrangerSheet.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.grid_view_rounded,
+                                  tooltip: 'Studio 16-Step Beat Sequencer & Drum Machine',
+                                  activeColor: AppColors.kappogyRed,
+                                  onPressed: () => DrumMachineSheet.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.speed_rounded,
+                                  tooltip: 'TT Dynamic Range (DR) & Headroom Meter',
+                                  activeColor: AppColors.kappogyGreen,
+                                  onPressed: () => DynamicRangeMeterSheet.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.album_rounded,
+                                  tooltip: 'Live Vinyl Scratch & Juggling Studio',
+                                  activeColor: AppColors.ledPurple,
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VinylScratchStudioScreen()));
+                                  },
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.directions_car_filled_rounded,
+                                  tooltip: 'Automotive Media Dashboard (Car Mode)',
+                                  activeColor: AppColors.ledCyan,
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const CarModeScreen()));
+                                  },
                                 ),
                                 const SizedBox(width: 8),
                                 SkeuoButton(

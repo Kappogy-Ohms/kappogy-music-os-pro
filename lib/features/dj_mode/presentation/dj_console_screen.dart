@@ -12,6 +12,7 @@ import 'deck_widget.dart';
 import 'dj_pro_screen.dart';
 import 'dj_providers.dart';
 import 'stem_mixer_sheet.dart';
+import 'vinyl_scratch_studio_screen.dart';
 
 class DjConsoleScreen extends ConsumerWidget {
   const DjConsoleScreen({super.key});
@@ -65,6 +66,21 @@ class DjConsoleScreen extends ConsumerWidget {
               tooltip: 'DJ Automix & Continuous Radio',
               onPressed: () => AutomixEngineSheet.show(context),
               icon: Icons.auto_mode_rounded,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 6),
+            child: SkeuoButton(
+              size: 36,
+              isCircular: false,
+              activeColor: AppColors.kappogyYellow,
+              tooltip: 'Live Vinyl Scratch & Juggling Studio',
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => const VinylScratchStudioScreen()),
+                );
+              },
+              icon: Icons.album_rounded,
             ),
           ),
           Padding(

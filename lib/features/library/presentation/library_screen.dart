@@ -27,12 +27,16 @@ import '../../equalizer/presentation/parametric_peq_sheet.dart';
 import '../../equalizer/presentation/spatial_audio_sheet.dart';
 import '../../equalizer/presentation/auto_eq_sheet.dart';
 import '../../recorder/presentation/studio_recorder_sheet.dart';
+import '../../recorder/presentation/drum_machine_sheet.dart';
+import '../../audio_player/presentation/dynamic_range_meter_sheet.dart';
 import '../../dj_mode/presentation/automix_engine_sheet.dart';
 import '../../dj_mode/presentation/dj_console_screen.dart';
 import '../../dj_mode/presentation/dj_pro_screen.dart';
 import '../../dj_mode/presentation/dj_providers.dart';
 import '../../dj_mode/presentation/stem_mixer_sheet.dart';
 import '../../dj_mode/presentation/stem_timeline_arranger_sheet.dart';
+import '../../dj_mode/presentation/vinyl_scratch_studio_screen.dart';
+import '../../car_mode/presentation/car_mode_screen.dart';
 import '../../intelligence/presentation/ear_training_game_dialog.dart';
 import '../../lyrics/presentation/lyrics_screen.dart';
 import '../../lyrics/presentation/karaoke_hud_screen.dart';
@@ -146,6 +150,16 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
             onPressed: _pickAndScanFolder,
           ),
           const SizedBox(width: 8),
+          SkeuoButton(
+            size: 36,
+            icon: Icons.directions_car_filled_rounded,
+            tooltip: 'Car Mode (Automotive Media Dashboard)',
+            activeColor: AppColors.ledCyan,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const CarModeScreen()));
+            },
+          ),
+          const SizedBox(width: 8),
           PopupMenuButton<String>(
             icon: Container(
               width: 36,
@@ -209,6 +223,14 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 AutoEqSheet.show(context);
               } else if (val == 'stem_timeline') {
                 StemTimelineArrangerSheet.show(context);
+              } else if (val == 'drum_machine') {
+                DrumMachineSheet.show(context);
+              } else if (val == 'dr_meter') {
+                DynamicRangeMeterSheet.show(context);
+              } else if (val == 'scratch_studio') {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const VinylScratchStudioScreen()));
+              } else if (val == 'car_mode') {
+                Navigator.of(context).push(MaterialPageRoute(builder: (_) => const CarModeScreen()));
               } else if (val == 'duplicates') {
                 showDialog(context: context, builder: (_) => const DuplicateCleanerDialog());
               } else if (val == 'guide') {
@@ -218,6 +240,10 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               }
             },
             itemBuilder: (ctx) => [
+              _menuItem('car_mode', 'Car Mode Dashboard', Icons.directions_car_filled_rounded),
+              _menuItem('drum_machine', '16-Step Beat Sequencer', Icons.grid_view_rounded),
+              _menuItem('dr_meter', 'TT Dynamic Range DR Meter', Icons.speed_rounded),
+              _menuItem('scratch_studio', 'Vinyl Scratch & Juggling Studio', Icons.album_rounded),
               _menuItem('recorder', 'Studio 24-Bit Recorder & Mic Lab', Icons.mic_rounded),
               _menuItem('auto_eq', 'Audiophile AutoEQ Calibration', Icons.headphones_rounded),
               _menuItem('stem_timeline', 'Multi-Stem Timeline & Arranger', Icons.view_timeline_rounded),
