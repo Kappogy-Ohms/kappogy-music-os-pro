@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/skeuo_tokens.dart';
+import '../../../core/services/intent_handler_service.dart';
 import '../../../core/utils/duration_formatter.dart';
 import '../../../core/widgets/skeuo_button.dart';
 import '../../../core/widgets/skeuo_knob.dart';
@@ -81,7 +82,17 @@ class NowPlayingScreen extends ConsumerWidget {
               },
             ),
           ),
-          if (track != null)
+          if (track != null) ...[
+            Padding(
+              padding: const EdgeInsets.only(right: 6),
+              child: SkeuoButton(
+                size: 40,
+                icon: Icons.share_rounded,
+                tooltip: 'Share Audio Track (Intent)',
+                activeColor: AppColors.ledCyan,
+                onPressed: () => IntentHandlerService.shareAudioFile(track, context: context),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 12),
               child: SkeuoButton(
@@ -94,6 +105,7 @@ class NowPlayingScreen extends ConsumerWidget {
                 },
               ),
             ),
+          ],
         ],
       ),
       body: SafeArea(
@@ -476,6 +488,15 @@ class NowPlayingScreen extends ConsumerWidget {
                                   tooltip: 'Musician Ear Training Pitch Game',
                                   activeColor: AppColors.kappogyYellow,
                                   onPressed: () => EarTrainingGameDialog.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.file_open_rounded,
+                                  tooltip: 'Play With... (Open External Audio File)',
+                                  activeColor: AppColors.ledCyan,
+                                  onPressed: () => IntentHandlerService.openExternalAudioPicker(context, ref),
                                 ),
                               ],
                             ),

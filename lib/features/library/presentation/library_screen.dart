@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/skeuo_tokens.dart';
+import '../../../core/services/intent_handler_service.dart';
 import '../../../core/widgets/skeuo_brand_logo.dart';
 import '../../../core/widgets/skeuo_button.dart';
 import '../../../core/widgets/skeuo_panel.dart';
@@ -55,6 +56,14 @@ class LibraryScreen extends ConsumerStatefulWidget {
 class _LibraryScreenState extends ConsumerState<LibraryScreen> {
   String _activeTab = 'SONGS';
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      IntentHandlerService.initialize(ref, context);
+    });
+  }
 
   Future<void> _pickAndScanFolder() async {
     final result = await FilePicker.platform.getDirectoryPath();
@@ -116,6 +125,14 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
             onPressed: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchScreen()));
             },
+          ),
+          const SizedBox(width: 8),
+          SkeuoButton(
+            size: 36,
+            icon: Icons.file_open_rounded,
+            tooltip: 'Play With... (Open External Audio File)',
+            activeColor: AppColors.ledCyan,
+            onPressed: () => IntentHandlerService.openExternalAudioPicker(context, ref),
           ),
           const SizedBox(width: 8),
           SkeuoButton(
@@ -392,6 +409,8 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                         backgroundColor: Colors.transparent,
                         builder: (_) => TagEditorSheet(track: track),
                       );
+                    } else if (val == 'share') {
+                      IntentHandlerService.shareAudioFile(track, context: context);
                     }
                   },
                   itemBuilder: (ctx) => [
@@ -401,6 +420,7 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                     const PopupMenuItem(value: 'looper', child: Text('A-B Practice Looper')),
                     const PopupMenuItem(value: 'ringtone', child: Text('Trim Ringtone / Alarm Tone')),
                     const PopupMenuItem(value: 'tags', child: Text('Edit ID3 Tags')),
+                    const PopupMenuItem(value: 'share', child: Text('Share Audio File (Intent)')),
                   ],
                 ),
               ],

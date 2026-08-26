@@ -312,6 +312,14 @@ Timestamp: ${DateTime.now().toUtc().toIso8601String()}
           tooltipText: 'Zero cloud tracking, local SQLite engine, and duplicate storage cleaner',
           description: 'Zero cloud dependencies, zero external telemetry. The Duplicate Detective scans your local music library to pinpoint duplicate audio files, calculate wasted storage, and prioritize uncompressed lossless master tracks.',
         ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '17. PLAY WITH & SHARE WITH INTENT ENGINE',
+          icon: Icons.share_rounded,
+          accent: AppColors.ledCyan,
+          tooltipText: 'Inbound & Outbound Android/iOS system audio intents and sharing',
+          description: 'Full support for opening external audio files (.mp3, .flac, .wav, .m4a, .ogg, .opus) from WhatsApp, Telegram, Files, or web downloads via "Play With", and sharing local audio tracks, trimmed ringtones, and M3U8 playlists to external apps via native share intents.',
+        ),
       ],
     );
   }

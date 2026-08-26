@@ -1,8 +1,10 @@
 package com.kappogy.musicos.kappogy_music_os_pro
 
 import android.content.Context
+import android.content.Intent
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
+import android.net.Uri
 import android.os.Build
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity
@@ -11,11 +13,49 @@ import io.flutter.plugin.common.MethodChannel
 
 class MainActivity : FlutterActivity() {
     private val AUDIO_CHANNEL = "com.kappogy.musicos/native_audio"
+    private var initialMediaUri: String? = null
+    private var methodChannel: MethodChannel? = null
+
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        handleIncomingIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleIncomingIntent(intent)
+    }
+
+    private fun handleIncomingIntent(intent: Intent?) {
+        if (intent == null) return
+
+        val action = intent.action
+        var uriString: String? = null
+
+        if (Intent.ACTION_VIEW == action) {
+            uriString = intent.dataString
+        } else if (Intent.ACTION_SEND == action) {
+            val streamUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+            }
+            uriString = streamUri?.toString()
+        }
+
+        if (uriString != null) {
+            initialMediaUri = uriString
+            methodChannel?.invokeMethod("onMediaIntentReceived", uriString)
+        }
+    }
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, AUDIO_CHANNEL).setMethodCallHandler { call, result ->
+        methodChannel = MethodChannel(flutterEngine.dartExecutor.binaryMessenger, AUDIO_CHANNEL)
+        methodChannel?.setMethodCallHandler { call, result ->
             val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
             when (call.method) {
@@ -65,6 +105,11 @@ class MainActivity : FlutterActivity() {
                     @Suppress("DEPRECATION")
                     val focusResult = audioManager.abandonAudioFocus(null)
                     result.success(focusResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+                }
+                "getInitialMediaUri" -> {
+                    val uri = initialMediaUri
+                    initialMediaUri = null
+                    result.success(uri)
                 }
                 else -> result.notImplemented()
             }

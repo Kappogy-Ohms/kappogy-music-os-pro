@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/skeuo_tokens.dart';
+import '../../../core/services/intent_handler_service.dart';
 import '../../../core/utils/duration_formatter.dart';
 import '../../../core/widgets/skeuo_button.dart';
 import '../../../core/widgets/skeuo_knob.dart';
@@ -253,25 +254,51 @@ class _RingtoneTrimmerDialogState extends State<RingtoneTrimmerDialog> {
               ],
             ),
 
-            const SizedBox(height: 16),
-
-            // Export Tone Action Button
-            SizedBox(
-              width: double.infinity,
-              height: 44,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.panelRaised,
-                  side: const BorderSide(color: AppColors.kappogyGreen, width: 1.0),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            // Export & Share Tone Action Buttons
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: SizedBox(
+                    height: 44,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.panelRaised,
+                        side: const BorderSide(color: AppColors.kappogyGreen, width: 1.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      icon: const Icon(Icons.check_circle_outline_rounded, color: AppColors.kappogyGreen, size: 18),
+                      label: Text(
+                        'EXPORT ${_exportType.name.toUpperCase()} TONE',
+                        style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+                      ),
+                      onPressed: _exportTone,
+                    ),
+                  ),
                 ),
-                icon: const Icon(Icons.check_circle_outline_rounded, color: AppColors.kappogyGreen, size: 18),
-                label: Text(
-                  'EXPORT & SAVE ${_exportType.name.toUpperCase()} TONE',
-                  style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+                const SizedBox(width: 8),
+                Expanded(
+                  flex: 2,
+                  child: SizedBox(
+                    height: 44,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.panelRaised,
+                        side: const BorderSide(color: AppColors.ledCyan, width: 1.0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      icon: const Icon(Icons.share_rounded, color: AppColors.ledCyan, size: 16),
+                      label: const Text(
+                        'SHARE',
+                        style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+                      ),
+                      onPressed: () {
+                        IntentHandlerService.shareAudioFile(widget.track, context: context);
+                      },
+                    ),
+                  ),
                 ),
-                onPressed: _exportTone,
-              ),
+              ],
             ),
           ],
         ),
