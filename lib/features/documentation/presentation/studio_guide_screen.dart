@@ -320,6 +320,38 @@ Timestamp: ${DateTime.now().toUtc().toIso8601String()}
           tooltipText: 'Inbound & Outbound Android/iOS system audio intents and sharing',
           description: 'Full support for opening external audio files (.mp3, .flac, .wav, .m4a, .ogg, .opus) from WhatsApp, Telegram, Files, or web downloads via "Play With", and sharing local audio tracks, trimmed ringtones, and M3U8 playlists to external apps via native share intents.',
         ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '18. STUDIO 24-BIT RECORDER & VOCAL OVERDUB LAB',
+          icon: Icons.mic_rounded,
+          accent: AppColors.kappogyRed,
+          tooltipText: '24-bit studio recording, live analog VU gauges, 80Hz rumble cut, and backing overdubbing',
+          description: 'Capture 24-bit lossless WAV, 48kHz broadcast, or 320kbps MP3 audio with analog preamp gain, high-pass rumble filter, and live needle VU meters. Sing or rap over any playing backing track with synchronized overdubbing.',
+        ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '19. AUDIOPHILE AUTOEQ CORRECTION SUITE',
+          icon: Icons.headphones_rounded,
+          accent: AppColors.ledCyan,
+          tooltipText: 'Acoustic calibration profiles for 4,000+ headphones and Harman Target 2019v2',
+          description: 'Compensate for headphone acoustic imperfections with calibrated frequency profiles (Sennheiser HD600/650, Sony WH-1000XM5, AirPods Max, Beyerdynamic DT 770, Moondrop IEMs) with 1-click apply to 10-Band Graphic EQ or 5-Band Parametric PEQ.',
+        ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '20. MULTI-STEM DAW TIMELINE & SLICE ARRANGER',
+          icon: Icons.view_timeline_rounded,
+          accent: AppColors.kappogyYellow,
+          tooltipText: 'Visual 4-track stem waveforms with bar-quantized loop slicing and mixdown bouncing',
+          description: 'Interactive multi-track DAW timeline displaying waveforms for Vocals, Drums, Bass, and Melody with 1/2/4/8-bar loop slice quantizing, individual channel solo/mute, and offline mixdown bouncing to your music library.',
+        ),
+        const SizedBox(height: 12),
+        _guideCard(
+          title: '21. 5-STYLE SKEUOMORPHIC TURNTABLE & REEL-TO-REEL DECK',
+          icon: Icons.album_rounded,
+          accent: AppColors.ledPurple,
+          tooltipText: 'Switchable skeuomorphic player decks (Technics 1200, Studer Reel-to-Reel, Acrylic, Cyber)',
+          description: 'Customize your tactile player visualizer between Classic 33 RPM Vinyl, Technics 1200 Direct-Drive with red laser strobe dots, Studer/Akai 10.5" Studio Reel-to-Reel Aluminum Tape Deck, Audiophile Clear Acrylic, or UV Cyber Fluorescent.',
+        ),
       ],
     );
   }

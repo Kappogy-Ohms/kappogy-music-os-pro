@@ -16,6 +16,7 @@ import 'equalizer_providers.dart';
 import 'loudness_leveler_sheet.dart';
 import 'parametric_peq_sheet.dart';
 import 'spatial_audio_sheet.dart';
+import 'auto_eq_sheet.dart';
 
 class EqualizerScreen extends ConsumerWidget {
   const EqualizerScreen({super.key});
@@ -454,26 +455,55 @@ class EqualizerScreen extends ConsumerWidget {
 
               const SizedBox(height: 10),
 
-              // 5-Band Parametric PEQ
-              SizedBox(
-                width: double.infinity,
-                height: 44,
-                child: Tooltip(
-                  message: 'Open 5-Band Continuous Parametric Equalizer (PEQ) with Bell Curves',
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.panelRaised,
-                      side: const BorderSide(color: AppColors.kappogyGreen, width: 1.0),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              // 5-Band Parametric PEQ & AutoEQ Suite Row
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      height: 44,
+                      child: Tooltip(
+                        message: 'Open 5-Band Continuous Parametric Equalizer (PEQ) with Bell Curves',
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.panelRaised,
+                            side: const BorderSide(color: AppColors.kappogyGreen, width: 1.0),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                          icon: const Icon(Icons.show_chart_rounded, color: AppColors.kappogyGreen, size: 18),
+                          label: const Text(
+                            '5-BAND PARAMETRIC PEQ',
+                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+                          ),
+                          onPressed: () => ParametricPeqSheet.show(context),
+                        ),
+                      ),
                     ),
-                    icon: const Icon(Icons.show_chart_rounded, color: AppColors.kappogyGreen, size: 18),
-                    label: const Text(
-                      '5-BAND CONTINUOUS PARAMETRIC EQ (PEQ)',
-                      style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
-                    ),
-                    onPressed: () => ParametricPeqSheet.show(context),
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    flex: 2,
+                    child: SizedBox(
+                      height: 44,
+                      child: Tooltip(
+                        message: 'Open Audiophile Headphone & IEM AutoEQ Correction Suite',
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.panelRaised,
+                            side: const BorderSide(color: AppColors.ledCyan, width: 1.0),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                          icon: const Icon(Icons.headphones_rounded, color: AppColors.ledCyan, size: 16),
+                          label: const Text(
+                            'AUTOEQ',
+                            style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+                          ),
+                          onPressed: () => AutoEqSheet.show(context),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

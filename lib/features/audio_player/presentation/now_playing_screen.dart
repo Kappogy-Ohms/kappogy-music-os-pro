@@ -9,6 +9,7 @@ import '../../../core/widgets/skeuo_knob.dart';
 import '../../../core/widgets/skeuo_panel.dart';
 import '../../../core/widgets/skeuo_vu_meter.dart';
 import '../domain/playback_state.dart';
+import '../domain/turntable_theme_model.dart';
 import 'ab_looper_sheet.dart';
 import 'audio_providers.dart';
 import 'audiophile_dac_sheet.dart';
@@ -22,6 +23,9 @@ import 'studio_synth_sheet.dart';
 import 'turntable_visualizer.dart';
 import '../../intelligence/presentation/ear_training_game_dialog.dart';
 import '../../library/presentation/library_providers.dart';
+import '../../recorder/presentation/studio_recorder_sheet.dart';
+import '../../equalizer/presentation/auto_eq_sheet.dart';
+import '../../dj_mode/presentation/stem_timeline_arranger_sheet.dart';
 
 class NowPlayingScreen extends ConsumerWidget {
   final VoidCallback? onOpenEqualizer;
@@ -122,6 +126,44 @@ class NowPlayingScreen extends ConsumerWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
+                        // Deck Visualizer Theme Header Switcher
+                        Builder(
+                          builder: (context) {
+                            final deckTheme = ref.watch(deckVisualizerThemeProvider);
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'DECK: ${deckTheme.label.toUpperCase()}',
+                                  style: const TextStyle(fontSize: 8.5, fontWeight: FontWeight.w900, color: AppColors.textSecondary),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    final nextIdx = (deckTheme.index + 1) % DeckVisualizerTheme.values.length;
+                                    ref.read(deckVisualizerThemeProvider.notifier).setTheme(DeckVisualizerTheme.values[nextIdx]);
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.panelWell,
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: AppColors.borderSubtle, width: 0.8),
+                                    ),
+                                    child: const Row(
+                                      children: [
+                                        Icon(Icons.swap_horiz_rounded, size: 12, color: AppColors.ledCyan),
+                                        SizedBox(width: 3),
+                                        Text('SWITCH DECK', style: TextStyle(fontSize: 8, fontWeight: FontWeight.w900, color: AppColors.ledCyan)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 10),
+
                         // Turntable Platter
                         Center(
                           child: TurntableVisualizer(
@@ -488,6 +530,33 @@ class NowPlayingScreen extends ConsumerWidget {
                                   tooltip: 'Musician Ear Training Pitch Game',
                                   activeColor: AppColors.kappogyYellow,
                                   onPressed: () => EarTrainingGameDialog.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.mic_rounded,
+                                  tooltip: 'Studio 24-Bit Recorder & Live Vocal Overdub',
+                                  activeColor: AppColors.kappogyRed,
+                                  onPressed: () => StudioRecorderSheet.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.headphones_rounded,
+                                  tooltip: 'Audiophile Headphone AutoEQ Calibration',
+                                  activeColor: AppColors.ledCyan,
+                                  onPressed: () => AutoEqSheet.show(context),
+                                ),
+                                const SizedBox(width: 8),
+                                SkeuoButton(
+                                  size: 34,
+                                  isCircular: false,
+                                  icon: Icons.view_timeline_rounded,
+                                  tooltip: 'Multi-Stem Waveform Timeline & Arranger',
+                                  activeColor: AppColors.kappogyYellow,
+                                  onPressed: () => StemTimelineArrangerSheet.show(context),
                                 ),
                                 const SizedBox(width: 8),
                                 SkeuoButton(

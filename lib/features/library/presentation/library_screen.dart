@@ -25,11 +25,14 @@ import '../../equalizer/presentation/equalizer_screen.dart';
 import '../../equalizer/presentation/loudness_leveler_sheet.dart';
 import '../../equalizer/presentation/parametric_peq_sheet.dart';
 import '../../equalizer/presentation/spatial_audio_sheet.dart';
+import '../../equalizer/presentation/auto_eq_sheet.dart';
+import '../../recorder/presentation/studio_recorder_sheet.dart';
 import '../../dj_mode/presentation/automix_engine_sheet.dart';
 import '../../dj_mode/presentation/dj_console_screen.dart';
 import '../../dj_mode/presentation/dj_pro_screen.dart';
 import '../../dj_mode/presentation/dj_providers.dart';
 import '../../dj_mode/presentation/stem_mixer_sheet.dart';
+import '../../dj_mode/presentation/stem_timeline_arranger_sheet.dart';
 import '../../intelligence/presentation/ear_training_game_dialog.dart';
 import '../../lyrics/presentation/lyrics_screen.dart';
 import '../../lyrics/presentation/karaoke_hud_screen.dart';
@@ -200,6 +203,12 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
                 EarTrainingGameDialog.show(context);
               } else if (val == 'looper') {
                 AbLooperSheet.show(context);
+              } else if (val == 'recorder') {
+                StudioRecorderSheet.show(context);
+              } else if (val == 'auto_eq') {
+                AutoEqSheet.show(context);
+              } else if (val == 'stem_timeline') {
+                StemTimelineArrangerSheet.show(context);
               } else if (val == 'duplicates') {
                 showDialog(context: context, builder: (_) => const DuplicateCleanerDialog());
               } else if (val == 'guide') {
@@ -209,6 +218,9 @@ class _LibraryScreenState extends ConsumerState<LibraryScreen> {
               }
             },
             itemBuilder: (ctx) => [
+              _menuItem('recorder', 'Studio 24-Bit Recorder & Mic Lab', Icons.mic_rounded),
+              _menuItem('auto_eq', 'Audiophile AutoEQ Calibration', Icons.headphones_rounded),
+              _menuItem('stem_timeline', 'Multi-Stem Timeline & Arranger', Icons.view_timeline_rounded),
               _menuItem('eq', 'Equalizer 10-Band Rack', Icons.equalizer_rounded),
               _menuItem('peq', '5-Band Parametric EQ (PEQ)', Icons.show_chart_rounded),
               _menuItem('crossfeed', 'Headphone Crossfeed & Room', Icons.headphones_rounded),

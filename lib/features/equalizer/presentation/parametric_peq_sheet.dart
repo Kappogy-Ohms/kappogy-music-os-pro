@@ -75,18 +75,21 @@ class ParametricPeqNotifier extends StateNotifier<ParametricPeqState> {
   void toggleMaster() => state = state.copyWith(isMasterEnabled: !state.isMasterEnabled);
   void selectBand(int index) => state = state.copyWith(activeBandIndex: index.clamp(0, state.bands.length - 1));
 
-  void updateActiveBand({double? freq, double? gain, double? q}) {
-    final idx = state.activeBandIndex;
+  void updateBand(int idx, {double? frequency, double? gain, double? q}) {
+    if (idx < 0 || idx >= state.bands.length) return;
     final current = state.bands[idx];
     final updated = current.copyWith(
-      frequencyHz: freq ?? current.frequencyHz,
+      frequencyHz: frequency ?? current.frequencyHz,
       gainDb: gain ?? current.gainDb,
       qFactor: q ?? current.qFactor,
     );
-
     final newBands = List<PeqBand>.from(state.bands);
     newBands[idx] = updated;
     state = state.copyWith(bands: newBands);
+  }
+
+  void updateActiveBand({double? freq, double? gain, double? q}) {
+    updateBand(state.activeBandIndex, frequency: freq, gain: gain, q: q);
   }
 
   void resetFlat() {

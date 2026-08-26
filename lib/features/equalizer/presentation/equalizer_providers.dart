@@ -66,6 +66,15 @@ class EqualizerNotifier extends StateNotifier<EqualizerState> {
     }
   }
 
+  void setAllBands(List<double> newBands, {String? presetName}) {
+    final updated = state.currentPreset.copyWith(
+      bands: List<double>.from(newBands),
+      isCustom: true,
+      name: presetName ?? 'AutoEQ Calibrated',
+    );
+    state = state.copyWith(currentPreset: updated);
+  }
+
   void updatePreamp(double value) {
     final updated = state.currentPreset.copyWith(preamp: value.clamp(-12.0, 12.0));
     state = state.copyWith(currentPreset: updated);

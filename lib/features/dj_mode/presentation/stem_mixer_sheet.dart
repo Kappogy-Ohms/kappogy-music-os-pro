@@ -4,6 +4,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/skeuo_button.dart';
 import '../../../core/widgets/skeuo_fader.dart';
 import '../../../core/widgets/skeuo_panel.dart';
+import 'stem_timeline_arranger_sheet.dart';
 
 class StemChannelState {
   final String name;
@@ -208,6 +209,30 @@ class StemMixerSheet extends ConsumerWidget {
               children: stems.map((stem) {
                 return _buildStemStrip(context, stem, state.isEnabled, notifier);
               }).toList(),
+            ),
+          ),
+
+          const SizedBox(height: 14),
+
+          // Open Stem Timeline Arranger button
+          SizedBox(
+            width: double.infinity,
+            height: 44,
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.panelRaised,
+                side: const BorderSide(color: AppColors.kappogyYellow, width: 1.0),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              ),
+              icon: const Icon(Icons.view_timeline_rounded, color: AppColors.kappogyYellow, size: 18),
+              label: const Text(
+                'OPEN MULTI-STEM TIMELINE & SLICE ARRANGER',
+                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                StemTimelineArrangerSheet.show(context);
+              },
             ),
           ),
         ],
