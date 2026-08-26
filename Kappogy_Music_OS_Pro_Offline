@@ -1,0 +1,854 @@
+KAPPOGY MUSIC OS — MASTER DEVELOPMENT PROMPT
+
+Build Kappogy Music OS, a premium fully offline/local-first music operating system for Android and iOS.
+
+TECHNOLOGY REQUIREMENT
+
+Use:
+
+- Flutter + Dart as the primary cross-platform application framework.
+- Kotlin for Android-specific functionality.
+- Swift for iOS-specific functionality.
+- Use clean Flutter-to-native platform interfaces for features that require direct operating-system access.
+
+Do NOT attempt to implement the entire application purely in Flutter.
+
+Flutter should handle the shared UI, business logic and application experience, while Kotlin/Swift should handle platform-specific and performance-critical functionality such as audio playback, background playback, media sessions, filesystem/media access, Bluetooth, Android Auto, CarPlay and native audio processing.
+
+The architecture must allow Android and iOS implementations to evolve independently where platform restrictions require it.
+
+---
+
+1. CORE ARCHITECTURE
+
+Use a production-grade modular architecture.
+
+Separate the application into:
+
+- Flutter UI
+- Application/business layer
+- Local database
+- Music indexing engine
+- Metadata engine
+- Lyrics engine
+- Playlist engine
+- Audio engine interface
+- Android native audio module
+- iOS native audio module
+- Offline intelligence engine
+- Audio analysis engine
+- DJ engine
+- Backup/restore
+- Settings
+- Theme/design system
+
+Use clean architecture, dependency injection where appropriate, strongly typed models, repository patterns and reusable services.
+
+Avoid tightly coupling the UI to the audio engine or database.
+
+---
+
+2. FULLY OFFLINE-FIRST
+
+Kappogy Music OS must work without internet.
+
+Core functionality must NOT require:
+
+- User accounts
+- Cloud servers
+- Internet
+- Cloud music storage
+- Online AI APIs
+- Online metadata services
+
+Music, playlists, listening history, ratings, lyrics and settings should remain on the user's device.
+
+Provide an optional:
+
+STRICT OFFLINE MODE
+
+which prevents the application from making network requests.
+
+---
+
+3. AUTOMATIC LOCAL MUSIC INDEXING
+
+Build a powerful local music indexing system.
+
+On first launch:
+
+1. Request appropriate platform permissions.
+2. Discover available music.
+3. Index supported audio files.
+4. Extract metadata.
+5. Extract/cache artwork.
+6. Store information in the local database.
+7. Build search indexes.
+
+After the initial scan, DO NOT rescan the entire device every time the app opens.
+
+Use:
+
+Initial Scan → Local Database → Incremental Change Detection → Database Update
+
+Detect:
+
+- New files
+- Deleted files
+- Renamed files
+- Moved files
+- Modified metadata
+- Duplicate files
+- Missing files
+
+Support:
+
+- Bulk folder import
+- Multiple folder selection
+- Nested folders
+- Excluded folders
+- Manual rescan
+- Background indexing
+- Pause/resume indexing
+- Indexing progress
+- Large libraries
+
+The application must remain responsive while indexing.
+
+---
+
+4. LOCAL DATABASE
+
+Use a robust SQLite-based local database.
+
+Use a Flutter-friendly production database such as Drift, or another appropriate SQLite abstraction.
+
+Store:
+
+- Track ID
+- File URI/path
+- Filename
+- Title
+- Artist
+- Album
+- Album Artist
+- Genre
+- Year
+- Track number
+- Disc number
+- Composer
+- Duration
+- Codec
+- Bitrate
+- Sample rate
+- Bit depth
+- BPM
+- Key
+- Mood
+- Energy
+- Artwork reference
+- Lyrics reference
+- Rating
+- Favorite status
+- Play count
+- Skip count
+- Last played
+- Date added
+- Folder
+- File size
+- File modification date
+
+Create appropriate database indexes for extremely fast search.
+
+---
+
+5. AUDIO FORMAT SUPPORT
+
+Support as many reliable formats as platform capabilities allow:
+
+- MP3
+- FLAC
+- WAV
+- AAC
+- M4A
+- OGG
+- OPUS
+- AIFF
+- ALAC
+- WMA where technically possible
+
+Gracefully handle unsupported or corrupted files.
+
+One invalid audio file must never crash the application.
+
+---
+
+6. PROFESSIONAL AUDIO ENGINE
+
+Create a dedicated audio-engine abstraction.
+
+Flutter communicates with the native audio implementation through a clean interface.
+
+Android
+
+Use appropriate native Android media/audio APIs and Kotlin.
+
+Implement:
+
+- Background playback
+- MediaSession
+- Audio focus
+- Notification controls
+- Bluetooth controls
+- Headset controls
+- Android Auto where supported
+- Interruption handling
+- Resume after Bluetooth reconnect where possible
+
+iOS
+
+Use Swift and appropriate AVFoundation/MediaPlayer APIs.
+
+Implement:
+
+- Background audio
+- AVAudioSession
+- Now Playing
+- Lock-screen controls
+- Control Center
+- Bluetooth
+- CarPlay where supported
+- Audio interruption handling
+
+Support:
+
+- Play
+- Pause
+- Seek
+- Previous
+- Next
+- Gapless playback
+- Crossfade where supported
+- Shuffle
+- Repeat
+- Queue
+- Playback speed
+- Pitch
+- Volume
+- Balance
+- Resume position
+
+---
+
+7. MUSIC LIBRARY
+
+Create:
+
+Songs
+
+Artists
+
+Albums
+
+Genres
+
+Folders
+
+Years
+
+Favorites
+
+Recently Added
+
+Recently Played
+
+Most Played
+
+Unplayed
+
+Downloads
+
+Hidden Songs
+
+Allow sorting and filtering.
+
+The UI must remain fast even with tens of thousands of tracks.
+
+Use pagination/lazy loading and artwork caching.
+
+---
+
+8. ADVANCED SEARCH
+
+Build an instant local search engine.
+
+Search:
+
+- Song
+- Artist
+- Album
+- Genre
+- Folder
+- Year
+- BPM
+- Key
+- Rating
+- Duration
+- Format
+- Bitrate
+- Play count
+- Favorite
+- Mood
+- Energy
+
+Support advanced queries such as:
+
+"artist:ArtistName"
+
+"genre:Afrobeats"
+
+"bpm:90-110"
+
+"rating:5"
+
+"year:2026"
+
+Allow natural-language local search such as:
+
+«Play relaxing songs around 90 BPM.»
+
+---
+
+9. SMART PLAYLISTS
+
+Automatically generate playlists such as:
+
+- Recently Added
+- Recently Played
+- Most Played
+- Favorites
+- Never Played
+- High BPM
+- Low BPM
+- Chill
+- Workout
+- Party
+- Morning
+- Night
+- Afrobeats
+- Gospel
+- Hip-Hop
+- Custom
+
+Allow users to create rule-based smart playlists.
+
+---
+
+10. ADVANCED QUEUE
+
+Create a persistent queue.
+
+Features:
+
+- Add next
+- Add to queue
+- Remove
+- Reorder
+- Clear
+- Save queue as playlist
+- Queue history
+- Persistent queue
+- Smart queue
+- Similar-song continuation
+
+Persist queue state between app launches.
+
+---
+
+11. METADATA EDITOR
+
+Create a professional metadata editor.
+
+Edit:
+
+- Title
+- Artist
+- Album
+- Album Artist
+- Genre
+- Year
+- Track number
+- Disc number
+- Composer
+- Comment
+- Lyrics
+- Artwork
+
+Support bulk editing.
+
+Example:
+
+Select 100 songs → Change Artist → Save.
+
+Use safe file-writing operations and never corrupt the original file if the operation fails.
+
+---
+
+12. ALBUM ARTWORK
+
+Support:
+
+- Embedded artwork
+- Folder artwork
+- Local artwork
+- Artwork cache
+- Manual artwork replacement
+- Artwork removal
+- Dynamic player background
+- Blurred artwork background
+
+Do not depend on online artwork services.
+
+---
+
+13. OFFLINE LYRICS
+
+Support:
+
+- Embedded lyrics
+- ".lrc"
+- Timestamped lyrics
+- Static lyrics
+- Manual lyrics editor
+- Karaoke mode
+- Lyrics synchronization
+- Font customization
+
+Everything must work offline.
+
+---
+
+14. OFFLINE MUSIC INTELLIGENCE
+
+Create an optional on-device music analysis system.
+
+Where technically practical, analyze:
+
+- BPM
+- Key
+- Loudness
+- Energy
+- Mood
+- Genre
+- Vocal/instrumental characteristics
+
+Use these results for smart playlists and recommendations.
+
+Never require uploading songs to a cloud AI service.
+
+---
+
+15. PROFESSIONAL EQUALIZER
+
+Implement an advanced audio-processing interface where supported by the platform/audio engine.
+
+Include:
+
+- 10/20/31-band EQ
+- Preamp
+- Bass boost
+- Treble
+- Compressor
+- Limiter
+- Loudness enhancement
+- Stereo widening
+- Virtualizer
+- Balance
+- Mono mode
+- Volume normalization
+
+Presets:
+
+- Flat
+- Bass Boost
+- Vocal
+- Rock
+- Pop
+- Jazz
+- Classical
+- Afrobeats
+- Hip-Hop
+- Gospel
+- Custom
+
+Persist EQ profiles locally.
+
+---
+
+16. DJ MODE
+
+Create a professional DJ Mode.
+
+Include:
+
+- Deck A
+- Deck B
+- Waveforms
+- BPM
+- Beat grid
+- Crossfader
+- Pitch fader
+- Tempo
+- Sync
+- Cue
+- Hot cues
+- Loop
+- Beat jump
+- Key lock
+- Track browser
+- Waveform seeking
+
+Create a separate:
+
+DJ PRO MODE
+
+with a more advanced interface.
+
+Both DJ screens must be highly responsive and must not overflow on small screens.
+
+Use scrolling where necessary.
+
+---
+
+17. DJ AUDIO ARCHITECTURE
+
+Do not build DJ functionality as a visual simulation.
+
+Create a proper audio architecture that can eventually support:
+
+- Two simultaneous audio streams
+- Deck-specific volume
+- Crossfading
+- Independent pitch/tempo
+- Beat synchronization
+- Cue monitoring where supported
+- Low-latency playback
+
+If a feature is restricted by Android/iOS hardware or OS limitations, implement the best supported alternative and document the limitation.
+
+---
+
+18. MUSIC STATISTICS
+
+Track locally:
+
+- Total songs
+- Total albums
+- Total artists
+- Listening time
+- Most played songs
+- Most played artists
+- Most played albums
+- Favorite genres
+- Daily listening
+- Weekly listening
+- Monthly listening
+- Play count
+- Skip count
+- Listening history
+
+Create a beautiful offline statistics dashboard.
+
+---
+
+19. SMART RESUME
+
+Remember:
+
+- Current song
+- Playback position
+- Queue
+- Shuffle
+- Repeat
+- Playback speed
+- Pitch
+- EQ profile
+
+Restore the previous session intelligently.
+
+---
+
+20. BACKUP AND RESTORE
+
+Create an offline backup system.
+
+Allow backup of:
+
+- Playlists
+- Favorites
+- Ratings
+- Play counts
+- Listening history
+- Lyrics
+- EQ presets
+- Settings
+- Smart playlist rules
+- Metadata changes
+
+Allow users to import the backup on another device.
+
+Never upload backups automatically.
+
+---
+
+21. THEMES
+
+Create a complete Kappogy design system.
+
+Include:
+
+- Light
+- Dark
+- AMOLED
+- Glassmorphism
+- Premium
+- Retro/Skeuomorphic
+
+The Retro/Skeuomorphic theme must feature:
+
+- Beveled controls
+- Raised buttons
+- Tactile controls
+- Defined scrollbar tracks
+- Raised scrollbar thumbs
+- Tactile scrollbar arrows
+- Subtle borders
+- Highlights
+- Shadows
+- Classic 1990s/2000s desktop-computing inspiration
+
+Keep it modern and professional rather than looking outdated.
+
+---
+
+22. RESPONSIVE DESIGN
+
+The entire application must be responsive.
+
+Support:
+
+- Small Android phones
+- Large Android phones
+- iPhones
+- iPads
+- Android tablets
+
+Pay special attention to:
+
+- Player
+- DJ Mode
+- DJ Pro
+- Library
+- Search
+- Queue
+- Metadata editor
+- Settings
+
+No clipped controls.
+
+No overflow.
+
+No buttons stacked incorrectly.
+
+Use responsive layouts and scrolling where necessary.
+
+---
+
+23. KAPPOGY BRANDING
+
+Use the Kappogy visual identity throughout the application.
+
+Brand colors:
+
+Red → Yellow → Green gradient
+
+Brand symbol:
+
+Black Ω
+
+App icon style:
+
+- Flat 3D
+- Premium
+- Clean
+- Transparent background for source asset
+- No downward reflective shadow
+
+---
+
+24. PRIVACY
+
+Kappogy Music OS must be privacy-first.
+
+Do not require:
+
+- Account
+- Login
+- Cloud
+- Internet
+- Online music storage
+
+The user's:
+
+- Music
+- Lyrics
+- Playlists
+- History
+- Ratings
+- Statistics
+- Metadata
+
+must remain local unless the user explicitly chooses otherwise.
+
+---
+
+25. ACCESSIBILITY
+
+Support:
+
+- Large text
+- Screen readers
+- High contrast
+- Large touch targets
+- Reduced motion
+- Keyboard input where applicable
+
+---
+
+26. ERROR HANDLING
+
+Gracefully handle:
+
+- Permission denial
+- Corrupt audio files
+- Missing files
+- Unsupported formats
+- Storage changes
+- Bluetooth disconnection
+- Audio interruptions
+- Invalid metadata
+- Duplicate files
+- Large libraries
+
+Never allow one bad file to crash the entire library.
+
+---
+
+27. TESTING
+
+Test thoroughly on:
+
+- Android phones
+- Android tablets
+- iPhones
+- iPads
+
+Test:
+
+- First launch
+- Permissions
+- Initial indexing
+- Incremental indexing
+- 1,000+ songs
+- 10,000+ songs
+- Very large libraries
+- Playback
+- Background playback
+- Lock screen
+- Bluetooth
+- Headphones
+- Queue
+- Playlists
+- Search
+- Metadata editing
+- Lyrics
+- EQ
+- DJ Mode
+- Statistics
+- Backup/restore
+- Theme switching
+- App restart
+- Device restart
+- Corrupt files
+
+Fix all build errors, crashes, UI overflow and critical performance issues.
+
+---
+
+28. DEVELOPMENT RULES
+
+Before coding:
+
+1. Inspect the existing project.
+2. Determine the current architecture.
+3. Preserve useful existing functionality.
+4. Create the production architecture.
+5. Create the database schema.
+6. Create the Flutter/native interfaces.
+7. Implement the indexing engine.
+8. Implement the native audio engine.
+9. Implement the music library.
+10. Implement the player.
+11. Implement queue and playlists.
+12. Implement metadata and lyrics.
+13. Implement EQ/audio processing.
+14. Implement offline intelligence.
+15. Implement DJ Mode.
+16. Implement statistics.
+17. Implement backup/restore.
+18. Implement Android/iOS integrations.
+19. Implement responsive UI.
+20. Test and optimize.
+
+Do not create fake buttons, fake AI, fake playback, fake indexing or placeholder functionality.
+
+Every major visible feature must connect to real underlying functionality.
+
+---
+
+29. PERFORMANCE REQUIREMENT
+
+The application must be designed for large local music collections.
+
+Optimize:
+
+- Database queries
+- Search
+- Artwork caching
+- Waveform caching
+- Memory usage
+- Background indexing
+- Audio decoding
+- UI rendering
+
+Never load an entire music library into memory at once.
+
+Never block the main UI thread with indexing or audio analysis.
+
+---
+
+30. FINAL PRODUCT STANDARD
+
+The final application must feel like a premium commercial music product, not a prototype.
+
+The fundamental product philosophy is:
+
+«Kappogy Music OS is a private, intelligent, professional local music operating system — not simply an MP3 player.»
+
+Build the architecture so future features can be added without rewriting the core system.
+
+Prioritize:
+
+Reliability → Offline capability → Audio quality → Performance → Privacy → Professional UI → Extensibility.
+
+At every development stage, verify that the application still builds and runs correctly on both Android and iOS before proceeding to the next major stage.
