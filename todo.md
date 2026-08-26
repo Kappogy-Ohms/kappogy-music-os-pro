@@ -144,3 +144,13 @@
 - [x] Wire demo synth sound presets (808 Bass, Synth Lead, Analog Brass, Rhodes) into `StudioSynthSheet`
 - [x] Update platform release configurations (version 2.4.0+240)
 - [x] Run full automated verification suite (56/56 tests passing, 0 analyze issues)
+
+### Phase 18 — Inbound & Outbound Intent Engine (Play With & Share With)
+- [x] Configure Android `AndroidManifest.xml` intent-filters for `ACTION_VIEW` and `ACTION_SEND` (audio mimeTypes, streams, files)
+- [x] Implement Kotlin native audio channel bridge in `MainActivity.kt` with `getInitialMediaUri` and `onMediaIntentReceived`
+- [x] Build **`IntentHandlerService`** (`intent_handler_service.dart`) with automatic external audio parsing, immediate queue playback, and ID3 extraction
+- [x] Add **"Play With... (Open External Audio)"** picker buttons to `LibraryScreen` AppBar and `NowPlayingScreen` action row
+- [x] Add **"Share Track (Intent)"** outbound sharing via `share_plus` to `NowPlayingScreen`, `LibraryScreen` track popup menus, and `RingtoneTrimmerDialog`
+- [x] Update **Studio Guide** (`studio_guide_screen.dart`) with Section 17 documenting Intent & Sharing engine
+- [x] Push complete code to GitHub repository `Kappogy-Ohms/kappogy-music-os-pro`
+- [x] Run full automated verification suite (60/60 tests passing, 0 analyze issues)
